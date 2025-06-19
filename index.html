@@ -22,24 +22,24 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding-left: 50px;
+            padding-left: 20px;
         }
 
         .menu-container {
-            width: 350px;
-            background: rgba(15, 20, 25, 0.95);
-            border-radius: 15px;
-            border: 2px solid rgba(100, 255, 180, 0.7);
-            box-shadow: 0 0 40px rgba(100, 255, 180, 0.5);
+            width: 280px;
+            background: rgba(10, 15, 20, 0.96);
+            border-radius: 12px;
+            border: 2px solid rgba(100, 255, 180, 0.8);
+            box-shadow: 0 0 30px rgba(100, 255, 180, 0.4);
             overflow: hidden;
-            animation: slideIn 0.5s ease-out;
-            backdrop-filter: blur(10px);
+            animation: slideIn 0.4s ease-out;
+            backdrop-filter: blur(8px);
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(-50px);
+                transform: translateX(-40px);
             }
             to {
                 opacity: 1;
@@ -49,25 +49,24 @@
 
         .menu-header {
             background: linear-gradient(135deg, rgba(100, 255, 180, 0.9), rgba(80, 200, 150, 0.9));
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            position: relative;
         }
 
         .menu-title {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 900;
-            letter-spacing: 6px;
-            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
             color: #ffffff;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .menu-subtitle {
-            font-size: 14px;
+            font-size: 11px;
             opacity: 0.9;
             color: #e8f5e8;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 500;
         }
 
@@ -79,10 +78,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 25px;
-            border-bottom: 1px solid rgba(40, 50, 60, 0.7);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(40, 50, 60, 0.6);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             user-select: none;
         }
@@ -92,20 +91,20 @@
         }
 
         .menu-item.selected {
-            background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
-            border-left: 4px solid #64ffb4;
-            padding-left: 21px;
-            transform: translateX(8px);
-            box-shadow: inset 0 0 25px rgba(100, 255, 180, 0.15);
+            background: linear-gradient(90deg, rgba(100, 255, 180, 0.2), rgba(100, 255, 180, 0.05));
+            border-left: 3px solid #64ffb4;
+            padding-left: 17px;
+            transform: translateX(5px);
+            box-shadow: inset 0 0 20px rgba(100, 255, 180, 0.1);
         }
 
         .menu-item .icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 16px;
-            opacity: 0.85;
-            transition: all 0.3s ease;
-            font-size: 18px;
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            opacity: 0.8;
+            transition: all 0.25s ease;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,15 +112,15 @@
 
         .menu-item.selected .icon {
             opacity: 1;
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
         .menu-item .text {
             flex: 1;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             color: #e5e5e5;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         .menu-item.selected .text {
@@ -130,23 +129,23 @@
         }
 
         .menu-item .arrow {
-            font-size: 18px;
-            color: rgba(100, 255, 180, 0.75);
-            transition: all 0.3s ease;
+            font-size: 14px;
+            color: rgba(100, 255, 180, 0.7);
+            transition: all 0.25s ease;
             font-weight: bold;
         }
 
         .menu-item.selected .arrow {
             color: #64ffb4;
-            transform: translateX(6px) scale(1.3);
+            transform: translateX(4px) scale(1.2);
         }
 
         .menu-footer {
-            background: rgba(8, 12, 18, 0.95);
-            padding: 16px 25px;
-            font-size: 12px;
+            background: rgba(5, 8, 12, 0.98);
+            padding: 12px 20px;
+            font-size: 10px;
             color: #999;
-            border-top: 1px solid rgba(40, 50, 60, 0.8);
+            border-top: 1px solid rgba(40, 50, 60, 0.7);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -168,45 +167,37 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 4px;
+            width: 3px;
             background: linear-gradient(180deg, #64ffb4, #50c878);
-            border-radius: 0 3px 3px 0;
+            border-radius: 0 2px 2px 0;
         }
 
         .menu-item.clicked {
-            animation: clickEffect 0.4s ease;
+            animation: clickEffect 0.3s ease;
         }
 
         @keyframes clickEffect {
             0% { 
-                transform: translateX(8px) scale(1); 
-                background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
+                transform: translateX(5px) scale(1); 
+                background: linear-gradient(90deg, rgba(100, 255, 180, 0.2), rgba(100, 255, 180, 0.05));
             }
             50% { 
-                transform: translateX(15px) scale(1.05); 
-                background: rgba(100, 255, 180, 0.4);
+                transform: translateX(12px) scale(1.03); 
+                background: rgba(100, 255, 180, 0.35);
             }
             100% { 
-                transform: translateX(8px) scale(1); 
-                background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
+                transform: translateX(5px) scale(1); 
+                background: linear-gradient(90deg, rgba(100, 255, 180, 0.2), rgba(100, 255, 180, 0.05));
             }
         }
 
         .menu-item.selected {
-            box-shadow: inset 0 0 25px rgba(100, 255, 180, 0.15), 0 0 20px rgba(100, 255, 180, 0.2);
+            box-shadow: inset 0 0 20px rgba(100, 255, 180, 0.1), 0 0 15px rgba(100, 255, 180, 0.15);
         }
 
         /* تحسينات للوضوح في FiveM */
         .menu-container {
-            filter: contrast(1.1) brightness(1.05);
-        }
-
-        .menu-title {
-            text-rendering: optimizeLegibility;
-        }
-
-        .menu-item .text {
-            text-rendering: optimizeLegibility;
+            filter: contrast(1.05) brightness(1.02);
         }
     </style>
 </head>
@@ -266,13 +257,13 @@
         </div>
 
         <div class="menu-footer">
-            <span>Version: <span class="version">v1.5</span> | Aura System</span>
+            <span>v1.5 | Aura System</span>
             <span class="counter">5/9</span>
         </div>
     </div>
 
     <script>
-        console.log('🌟 Aura Menu v1.5 - Optimized for FiveM');
+        console.log('🌟 Aura Menu v1.5 - Compact Version');
         
         let currentIndex = 4; // البداية من Vehicle
         const menuItems = document.querySelectorAll('.menu-item');
@@ -294,14 +285,6 @@
             });
             
             counter.textContent = `${currentIndex + 1}/9`;
-            
-            // التمرير السلس
-            if (menuItems[currentIndex]) {
-                menuItems[currentIndex].scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
-                });
-            }
         }
 
         // تأثير الاختيار
@@ -313,7 +296,7 @@
             const selectedItem = menuItems[currentIndex];
             if (selectedItem) {
                 selectedItem.classList.add('clicked');
-                setTimeout(() => selectedItem.classList.remove('clicked'), 400);
+                setTimeout(() => selectedItem.classList.remove('clicked'), 300);
                 console.log('🎯 Select effect applied');
             }
         }
@@ -321,10 +304,10 @@
         // تهيئة أولية
         document.addEventListener('DOMContentLoaded', function() {
             updateSelection();
-            console.log('🌟 Aura Menu ready - Optimized for FiveM DUI');
+            console.log('🌟 Aura Menu ready - Compact version');
         });
 
-        // للتوافق مع FiveM - استقبال رسائل من Lua
+        // استقبال رسائل من FiveM
         window.addEventListener('message', function(event) {
             const data = event.data;
             console.log('📨 Message from FiveM:', data);
