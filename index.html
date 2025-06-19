@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rura Menu</title>
+    <title>Aura Menu</title>
     <style>
         * {
             margin: 0;
@@ -28,14 +28,13 @@
         }
 
         .menu-container {
-            width: 280px;
-            background: rgba(8, 12, 18, 0.85);
+            width: 320px;
+            background: transparent;
             border-radius: 12px;
             border: 2px solid rgba(100, 255, 180, 0.9);
             box-shadow: 
                 0 0 25px rgba(100, 255, 180, 0.3),
-                0 0 50px rgba(100, 255, 180, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 0 50px rgba(100, 255, 180, 0.1);
             overflow: hidden;
             animation: slideIn 0.4s ease-out;
             backdrop-filter: blur(12px);
@@ -60,20 +59,20 @@
                 rgba(100, 255, 180, 0.95), 
                 rgba(80, 200, 150, 0.95),
                 rgba(60, 180, 120, 0.95));
-            padding: 20px;
+            padding: 22px;
             text-align: center;
             border-bottom: 1px solid rgba(100, 255, 180, 0.3);
         }
 
         .menu-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-shadow: 
                 2px 2px 4px rgba(0, 0, 0, 0.8),
                 0 0 10px rgba(100, 255, 180, 0.5);
             color: #ffffff;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
@@ -94,12 +93,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(40, 50, 60, 0.6);
+            padding: 14px 22px;
+            border-bottom: 1px solid rgba(100, 255, 180, 0.15);
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             user-select: none;
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .menu-item:last-child {
@@ -115,12 +115,12 @@
         }
 
         .menu-item .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
+            width: 22px;
+            height: 22px;
+            margin-right: 14px;
             opacity: 0.8;
             transition: all 0.25s ease;
-            font-size: 14px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,9 +133,9 @@
 
         .menu-item .text {
             flex: 1;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
-            color: #e8e8e8;
+            color: #f0f0f0;
             transition: all 0.25s ease;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
@@ -159,10 +159,10 @@
         }
 
         .menu-footer {
-            background: rgba(3, 5, 8, 0.9);
-            padding: 12px 20px;
-            font-size: 10px;
-            color: #aaa;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 14px 22px;
+            font-size: 11px;
+            color: #bbb;
             border-top: 1px solid rgba(100, 255, 180, 0.2);
             display: flex;
             justify-content: space-between;
@@ -233,7 +233,7 @@
 <body>
     <div class="menu-container">
         <div class="menu-header">
-            <div class="menu-title">rura</div>
+            <div class="menu-title">AURA</div>
             <div class="menu-subtitle">MENU SYSTEM</div>
         </div>
 
@@ -286,13 +286,13 @@
         </div>
 
         <div class="menu-footer">
-            <span>v1.5 | rura System</span>
+            <span>v1.5 | Aura System</span>
             <span class="counter">5/9</span>
         </div>
     </div>
 
     <script>
-        console.log('🌟 rura Menu v1.5 - Compact Version');
+        console.log('🌟 Aura Menu v1.5 - Compact Version');
         
         let currentIndex = 4; // البداية من Vehicle
         const menuItems = document.querySelectorAll('.menu-item');
@@ -333,7 +333,7 @@
         // تهيئة أولية
         document.addEventListener('DOMContentLoaded', function() {
             updateSelection();
-            console.log('🌟 rura Menu ready - Compact version');
+            console.log('🌟 Aura Menu ready - Compact version');
         });
 
         // استقبال رسائل من FiveM
