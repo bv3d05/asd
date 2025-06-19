@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            color: white;
+            cursor: default;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 50px;
+        }
+
+        .menu-container {
+            width: 350px;
+            background: rgba(15, 20, 25, 0.95);
+            border-radius: 15px;
+            border: 2px solid rgba(100, 255, 180, 0.7);
+            box-shadow: 0 0 40px rgba(100, 255, 180, 0.5);
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-header {
+            background: linear-gradient(135deg, rgba(100, 255, 180, 0.9), rgba(80, 200, 150, 0.9));
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-title {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .menu-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            color: #e8f5e8;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .menu-items {
+            padding: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 25px;
+            border-bottom: 1px solid rgba(40, 50, 60, 0.7);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            user-select: none;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item.selected {
+            background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
+            border-left: 4px solid #64ffb4;
+            padding-left: 21px;
+            transform: translateX(8px);
+            box-shadow: inset 0 0 25px rgba(100, 255, 180, 0.15);
+        }
+
+        .menu-item .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            opacity: 0.85;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-item.selected .icon {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .menu-item .text {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+            color: #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item.selected .text {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .menu-item .arrow {
+            font-size: 18px;
+            color: rgba(100, 255, 180, 0.75);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .menu-item.selected .arrow {
+            color: #64ffb4;
+            transform: translateX(6px) scale(1.3);
+        }
+
+        .menu-footer {
+            background: rgba(8, 12, 18, 0.95);
+            padding: 16px 25px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid rgba(40, 50, 60, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-footer .version {
+            color: #64ffb4;
+            font-weight: bold;
+        }
+
+        .menu-footer .counter {
+            color: #64ffb4;
+            font-weight: bold;
+        }
+
+        .menu-item.selected::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #64ffb4, #50c878);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .menu-item.clicked {
+            animation: clickEffect 0.4s ease;
+        }
+
+        @keyframes clickEffect {
+            0% { 
+                transform: translateX(8px) scale(1); 
+                background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
+            }
+            50% { 
+                transform: translateX(15px) scale(1.05); 
+                background: rgba(100, 255, 180, 0.4);
+            }
+            100% { 
+                transform: translateX(8px) scale(1); 
+                background: linear-gradient(90deg, rgba(100, 255, 180, 0.25), rgba(100, 255, 180, 0.08));
+            }
+        }
+
+        .menu-item.selected {
+            box-shadow: inset 0 0 25px rgba(100, 255, 180, 0.15), 0 0 20px rgba(100, 255, 180, 0.2);
+        }
+
+        /* تحسينات للوضوح في FiveM */
+        .menu-container {
+            filter: contrast(1.1) brightness(1.05);
+        }
+
+        .menu-title {
+            text-rendering: optimizeLegibility;
+        }
+
+        .menu-item .text {
+            text-rendering: optimizeLegibility;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="menu-header">
+            <div class="menu-title">AURA</div>
+            <div class="menu-subtitle">MENU SYSTEM</div>
+        </div>
+
+        <div class="menu-items">
+            <div class="menu-item" data-index="0" data-action="self">
+                <div class="icon">👤</div>
+                <div class="text">Self</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="1" data-action="online">
+                <div class="icon">🌐</div>
+                <div class="text">Online</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="2" data-action="combat">
+                <div class="icon">⚔️</div>
+                <div class="text">Combat/Weapons</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="3" data-action="visual">
+                <div class="icon">👁️</div>
+                <div class="text">Visual</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item selected" data-index="4" data-action="vehicle">
+                <div class="icon">🚗</div>
+                <div class="text">Vehicle</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="5" data-action="misc">
+                <div class="icon">📂</div>
+                <div class="text">Miscellaneous</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="6" data-action="destructive">
+                <div class="icon">💥</div>
+                <div class="text">Destructive</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="7" data-action="triggers">
+                <div class="icon">⚡</div>
+                <div class="text">Triggers</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="8" data-action="settings">
+                <div class="icon">⚙️</div>
+                <div class="text">Settings</div>
+                <div class="arrow">»</div>
+            </div>
+        </div>
+
+        <div class="menu-footer">
+            <span>Version: <span class="version">v1.5</span> | Aura System</span>
+            <span class="counter">5/9</span>
+        </div>
+    </div>
+
+    <script>
+        console.log('🌟 Aura Menu v1.5 - Optimized for FiveM');
+        
+        let currentIndex = 4; // البداية من Vehicle
+        const menuItems = document.querySelectorAll('.menu-item');
+        const counter = document.querySelector('.counter');
+
+        // تحديث التحديد
+        function updateSelection(index) {
+            if (index !== undefined) {
+                currentIndex = index;
+            }
+            
+            console.log('🔄 Selection updated to:', currentIndex);
+            
+            menuItems.forEach((item, i) => {
+                item.classList.remove('selected');
+                if (i === currentIndex) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            counter.textContent = `${currentIndex + 1}/9`;
+            
+            // التمرير السلس
+            if (menuItems[currentIndex]) {
+                menuItems[currentIndex].scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }
+        }
+
+        // تأثير الاختيار
+        function selectEffect(index) {
+            if (index !== undefined) {
+                currentIndex = index;
+            }
+            
+            const selectedItem = menuItems[currentIndex];
+            if (selectedItem) {
+                selectedItem.classList.add('clicked');
+                setTimeout(() => selectedItem.classList.remove('clicked'), 400);
+                console.log('🎯 Select effect applied');
+            }
+        }
+
+        // تهيئة أولية
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelection();
+            console.log('🌟 Aura Menu ready - Optimized for FiveM DUI');
+        });
+
+        // للتوافق مع FiveM - استقبال رسائل من Lua
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            console.log('📨 Message from FiveM:', data);
+            
+            try {
+                if (data.type === 'updateSelection') {
+                    updateSelection(data.currentIndex);
+                } else if (data.type === 'selectEffect') {
+                    selectEffect(data.index);
+                }
+            } catch (error) {
+                console.error('Error processing message:', error);
+            }
+        });
+
+        console.log('✅ Menu ready for FiveM integration');
+    </script>
+</body>
+</html>
