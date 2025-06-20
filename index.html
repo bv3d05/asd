@@ -23,13 +23,8 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /*
-            تأكد من الشفافية لـ FiveM.
-            'transparent !important' لـ background-color يجب أن يكون كافيًا.
-            */
             background-color: transparent !important; 
             overflow: hidden;
-            /* تم تغيير الخط إلى خط آمن للويب للاختبار */
             font-family: 'Arial', sans-serif; 
         }
 
@@ -47,27 +42,23 @@
 
         .menu-container {
             width: 340px;
+            /* تم زيادة الارتفاع لتبدو أطول */
             height: auto;
-            min-height: 620px;
-            background: rgba(0, 0, 0, 0.7); /* استخدم لون خلفية شبه شفاف بدلاً من شفافية كاملة مع backdrop-filter */
+            min-height: 900px; /* تم زيادة هذه القيمة بشكل ملحوظ */
+            background: rgba(0, 0, 0, 0.7); 
             border-radius: 20px;
             border: 1px solid rgba(100, 255, 180, 0.3);
-            /*
-            تم إصلاح خطأ box-shadow. يمكنك ضبط القيم حسب رغبتك.
-            إذا كنت لا تزال ترى المربع الأسود، يمكنك تجربة إزالة box-shadow تمامًا.
-            */
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4), /* ظل خارجي */
-                inset 0 0 20px rgba(100, 255, 180, 0.1); /* ظل داخلي لإعطاء عمق */
+                0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 0 20px rgba(100, 255, 180, 0.1); 
             overflow: hidden;
             animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            /*
-            تم تعليق backdrop-filter لأنها غالبًا ما تسبب مشاكل في CEF.
-            -webkit-backdrop-filter هو بادئة لمتصفحات WebKit (بما في ذلك Chromium).
-            */
             /* backdrop-filter: blur(20px) saturate(180%); */ 
             /* -webkit-backdrop-filter: blur(20px) saturate(180%); */
             position: relative;
+            /* إضافة flexbox لتحسين توزيع المحتوى داخله */
+            display: flex;
+            flex-direction: column;
         }
 
         .menu-container::before {
@@ -97,6 +88,7 @@
             border-bottom: 1px solid rgba(100, 255, 180, 0.2);
             position: relative;
             overflow: hidden;
+            flex-shrink: 0; /* لا يسمح بانكماش الهيدر */
         }
 
         .menu-header::before {
@@ -144,6 +136,8 @@
 
         .menu-items {
             padding: 12px 0;
+            flex-grow: 1; /* يسمح للعناصر بالنمو لملء المساحة المتاحة */
+            overflow-y: auto; /* إضافة شريط تمرير إذا زادت العناصر عن الارتفاع */
         }
 
         .menu-item {
@@ -156,7 +150,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             user-select: none;
-            background: transparent !important; /* تأكد من الشفافية لـ hover shine */
+            background: transparent !important; 
             min-height: 52px;
             overflow: hidden;
         }
@@ -252,6 +246,7 @@
             justify-content: space-between;
             align-items: center;
             min-height: 55px;
+            flex-shrink: 0; /* لا يسمح بانكماش الفوتر */
         }
 
         .menu-footer .version {
@@ -294,10 +289,17 @@
         /* نظام الإشعارات */
         .notification-container {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            /* تم تعديل الموقع ليكون في أسفل اليمين */
+            bottom: 30px; /* مسافة من الأسفل */
+            right: 30px;  /* مسافة من اليمين */
+            top: auto;    /* تأكد من عدم وجود قيمة لـ top */
+            left: auto;   /* تأكد من عدم وجود قيمة لـ left */
             z-index: 9999;
             pointer-events: none;
+            display: flex; /* يسمح بترتيب الإشعارات عموديًا */
+            flex-direction: column; /* يضع الإشعارات فوق بعضها */
+            gap: 15px; /* مسافة بين الإشعارات */
+            align-items: flex-end; /* لمحاذاة الإشعارات إلى اليمين */
         }
 
         .notification {
@@ -311,10 +313,7 @@
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 0 0 40px rgba(100, 255, 180, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            /*
-            تم تعليق backdrop-filter هنا أيضًا
-            backdrop-filter: blur(20px);
-            */
+            /* backdrop-filter: blur(20px); */
             border: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 280px;
             animation: notificationSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -422,7 +421,6 @@
         }
         
         .menu-container {
-            /* تم تعليق هذا الفلتر الإضافي لتبسيط العرض */
             /* filter: contrast(1.1) brightness(1.05) saturate(1.15); */
         }
         
@@ -533,7 +531,7 @@
                 }
             });
             
-            counter.textContent = `${currentIndex + 1}/${menuItems.length}`; // عدلت هنا لجعلها ديناميكية
+            counter.textContent = `${currentIndex + 1}/${menuItems.length}`; 
         }
 
         // تأثير الاختيار مع الإشعار
