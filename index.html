@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Menu - Enhanced</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /*
-        تم تعليق استيراد الخطوط الخارجية كخطوة أولى في استكشاف الأخطاء وإصلاحها.
-        إذا عملت القائمة بعد هذا التعديل، فهذا يشير إلى أن الخطوط الخارجية قد تكون مشكلة.
-        يمكنك إعادة تفعيلها لاحقًا إذا كانت المشكلة في مكان آخر.
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        */
-        
         * {
             margin: 0;
             padding: 0;
@@ -23,9 +17,9 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent !important; 
+            background-color: transparent !important;
             overflow: hidden;
-            font-family: 'Arial', sans-serif; /* خط بسيط وواضح */
+            font-family: 'Roboto', sans-serif;
         }
 
         body {
@@ -36,20 +30,20 @@
             align-items: center;
             padding-left: 30px;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             background-color: transparent !important;
         }
 
         .menu-container {
-            width: 380px; /* زيادة العرض قليلاً لاستيعاب الخطوط الأكبر */
-            height: auto; 
-            min-height: 900px; 
-            background: rgba(0, 0, 0, 0.7); 
+            width: 480px;
+            height: 1020px;
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 20px;
             border: 1px solid rgba(100, 255, 180, 0.3);
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.4), 
-                inset 0 0 20px rgba(100, 255, 180, 0.1); 
+                inset 0 0 20px rgba(100, 255, 180, 0.1);
             overflow: hidden;
             animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -79,7 +73,7 @@
                 rgba(100, 255, 180, 0.9) 0%,
                 rgba(64, 224, 208, 0.8) 50%,
                 rgba(0, 206, 209, 0.9) 100%);
-            padding: 30px 28px; /* زيادة الـ padding */
+            padding: 40px 32px;
             text-align: center;
             border-bottom: 1px solid rgba(100, 255, 180, 0.2);
             position: relative;
@@ -107,47 +101,51 @@
         }
 
         .menu-title {
-            font-size: 44px; /* زيادة حجم العنوان الرئيسي */
+            font-size: 60px;
             font-weight: 900;
-            letter-spacing: 8px; /* زيادة المسافات بين الأحرف */
+            letter-spacing: 10px;
             text-shadow: 
                 0 4px 8px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(100, 255, 180, 0.7); /* زيادة تأثير الظل للوضوح */
+                0 0 25px rgba(100, 255, 180, 0.7);
             color: #ffffff;
-            margin-bottom: 10px; /* زيادة المسافة */
+            margin-bottom: 12px;
             position: relative;
             z-index: 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .menu-subtitle {
-            font-size: 15px; /* زيادة حجم العنوان الفرعي */
+            font-size: 22px;
             opacity: 0.95;
             color: #e8f8f5;
-            letter-spacing: 3px; /* زيادة المسافات بين الأحرف */
-            font-weight: 600; /* جعل الخط أسمك */
+            letter-spacing: 4px;
+            font-weight: 600;
             text-transform: uppercase;
             position: relative;
             z-index: 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .menu-items {
-            padding: 16px 0; /* زيادة الـ padding */
-            flex-grow: 1; 
-            overflow-y: auto; 
+            padding: 20px 0;
+            flex-grow: 1;
+            overflow-y: auto;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 28px; /* زيادة الـ padding لزيادة المساحة حول النص */
+            padding: 24px 32px;
             border-bottom: 1px solid rgba(100, 255, 180, 0.08);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             user-select: none;
-            background: transparent !important; 
-            min-height: 65px; /* زيادة الحد الأدنى للارتفاع */
+            background: transparent !important;
+            min-height: 80px;
             overflow: hidden;
         }
 
@@ -177,126 +175,118 @@
             background: linear-gradient(90deg, 
                 rgba(100, 255, 180, 0.25) 0%, 
                 rgba(100, 255, 180, 0.08) 100%);
-            border-left: 6px solid #64ffb4; /* زيادة سمك الخط الجانبي */
-            padding-left: 28px; /* تعديل الـ padding ليتناسب مع الخط الجديد */
-            transform: translateX(10px) scale(1.02); /* زيادة حركة الـ translate */
+            border-left: 6px solid #64ffb4;
+            padding-left: 32px;
+            transform: translateX(10px) scale(1.02);
             box-shadow: 
-                inset 0 0 35px rgba(100, 255, 180, 0.18), /* زيادة تأثير الظل */
-                0 6px 25px rgba(100, 255, 180, 0.25); /* زيادة تأثير الظل */
+                inset 0 0 35px rgba(100, 255, 180, 0.18),
+                0 6px 25px rgba(100, 255, 180, 0.25);
         }
 
         .menu-item .icon {
-            width: 32px; /* زيادة حجم الأيقونة */
-            height: 32px; /* زيادة حجم الأيقونة */
-            margin-right: 20px; /* زيادة المسافة */
-            opacity: 0.95; /* زيادة الشفافية قليلاً */
+            width: 40px;
+            height: 40px;
+            margin-right: 24px;
+            opacity: 0.95;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 26px; /* حجم الخط داخل الأيقونة */
+            font-size: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4)); /* زيادة تأثير الظل */
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
         }
 
         .menu-item.selected .icon {
             opacity: 1;
-            transform: scale(1.2) rotate(8deg); /* زيادة حركة الأيقونة */
-            filter: drop-shadow(0 0 10px rgba(100, 255, 180, 0.8)); /* زيادة تأثير الظل */
+            transform: scale(1.2) rotate(8deg);
+            filter: drop-shadow(0 0 10px rgba(100, 255, 180, 0.8));
         }
 
         .menu-item .text {
             flex: 1;
-            font-size: 19px; /* زيادة حجم الخط الأساسي */
-            font-weight: 600; /* جعل الخط أسمك */
+            font-size: 24px;
+            font-weight: 600;
             color: #f8f9fa;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* زيادة تأثير الظل للنص */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .menu-item.selected .text {
             color: #ffffff;
-            font-weight: 700; /* جعل الخط أسمك عند التحديد */
-            text-shadow: 0 0 15px rgba(100, 255, 180, 0.6); /* زيادة تأثير الظل عند التحديد */
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(100, 255, 180, 0.6);
         }
 
         .menu-item .arrow {
-            font-size: 20px; /* زيادة حجم السهم */
-            color: rgba(100, 255, 180, 0.8); /* زيادة كثافة اللون */
+            font-size: 24px;
+            color: rgba(100, 255, 180, 0.8);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: bold;
         }
 
         .menu-item.selected .arrow {
             color: #64ffb4;
-            transform: translateX(8px) scale(1.4); /* زيادة حركة السهم */
-            filter: drop-shadow(0 0 8px rgba(100, 255, 180, 0.9)); /* زيادة تأثير الظل */
+            transform: translateX(8px) scale(1.4);
+            filter: drop-shadow(0 0 8px rgba(100, 255, 180, 0.9));
         }
 
         .menu-footer {
             background: transparent !important;
-            padding: 24px 32px; /* زيادة الـ padding */
-            font-size: 13px; /* زيادة حجم الخط */
+            padding: 24px 32px;
+            font-size: 16px;
             color: #cbd5e0;
             border-top: 1px solid rgba(100, 255, 180, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 60px; /* زيادة الحد الأدنى للارتفاع */
-            flex-shrink: 0; 
+            min-height: 60px;
+            flex-shrink: 0;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .menu-footer .version {
             color: #64ffb4;
-            font-weight: 700; /* جعل الخط أسمك */
-            text-shadow: 0 0 10px rgba(100, 255, 180, 0.5); /* زيادة تأثير الظل */
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(100, 255, 180, 0.5);
         }
 
         .menu-footer .counter {
             color: #64ffb4;
-            font-weight: 800; /* جعل الخط أسمك جداً */
-            font-size: 16px; /* زيادة حجم الخط */
-            padding: 6px 14px; /* زيادة الـ padding */
+            font-weight: 800;
+            font-size: 18px;
+            padding: 6px 14px;
             background: rgba(100, 255, 180, 0.1);
             border-radius: 20px;
             border: 1px solid rgba(100, 255, 180, 0.3);
         }
 
         .notification {
-            /* تعديلات على الإشعارات لتكون أوضح */
-            padding: 20px 28px; /* زيادة الـ padding */
+            padding: 20px 28px;
             border-radius: 18px;
-            min-width: 300px; /* زيادة العرض الأدنى */
+            min-width: 300px;
         }
 
         .notification-icon {
-            font-size: 28px; /* زيادة حجم أيقونة الإشعار */
-            margin-right: 15px; /* زيادة المسافة */
+            font-size: 32px;
+            margin-right: 15px;
         }
 
         .notification-title {
-            font-size: 18px; /* زيادة حجم عنوان الإشعار */
-            font-weight: 800; /* جعل الخط أسمك */
+            font-size: 20px;
+            font-weight: 800;
             margin-bottom: 6px;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .notification-message {
-            font-size: 16px; /* زيادة حجم رسالة الإشعار */
-            font-weight: 600; /* جعل الخط أسمك */
-        }
-
-        /* تحسينات إضافية */
-        html, body {
-            background-color: transparent !important;
-        }
-        
-        .menu-container {
-            /* filter: contrast(1.1) brightness(1.05) saturate(1.15); */
-        }
-        
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-size: 18px;
+            font-weight: 600;
             text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
     </style>
 </head>
@@ -356,7 +346,7 @@
         </div>
 
         <div class="menu-footer">
-            <span class="version">v2.0 | Aura Enhanced</span>
+            <span class="version">v2.1 | Aura Enhanced</span>
             <span class="counter">5/9</span>
         </div>
     </div>
@@ -365,15 +355,14 @@
     </div>
 
     <script>
-        console.log('🌟 Aura Menu v2.0 - Enhanced Modern Design');
+        console.log('🌟 Aura Menu v2.1 - Enhanced Modern Design');
         
-        let currentIndex = 4; // تبدأ من العنصر الخامس (فهرس 4)
+        let currentIndex = 4;
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
-        const menuContainer = document.querySelector('.menu-container'); // احصل على عنصر القائمة الرئيسي
+        const menuContainer = document.querySelector('.menu-container');
 
-        // أسماء الخيارات مع الأيقونات
         const menuOptions = [
             { name: "Self", icon: "👤", desc: "Player Options" },
             { name: "Online", icon: "🌐", desc: "Online Features" },
@@ -386,10 +375,8 @@
             { name: "Settings", icon: "⚙️", desc: "System Settings" }
         ];
 
-        // تحديث التحديد
         function updateSelection(index) {
             console.log('Function updateSelection called with index:', index);
-
             if (index !== undefined && index >= 0 && index < menuItems.length) {
                 currentIndex = index;
             } else {
@@ -407,11 +394,9 @@
                 }
             });
             
-            // تحديث العداد
             counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             console.log('Counter updated to:', counter.textContent);
 
-            // اجعل العنصر المحدد مرئيًا في حالة التمرير
             const selectedItem = menuItems[currentIndex];
             if (selectedItem) {
                 selectedItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -419,10 +404,8 @@
             }
         }
 
-        // تأثير الاختيار مع الإشعار
         function selectEffect(index) {
             console.log('Function selectEffect called with index:', index);
-
             if (index !== undefined && index >= 0 && index < menuItems.length) {
                 currentIndex = index;
             } else {
@@ -437,7 +420,6 @@
                 showNotification(currentIndex);
                 
                 console.log('🎯 Select effect applied with notification for index:', currentIndex);
-                // إرسال إشعار إلى FiveM بأن العنصر تم اختياره (اختياري)
                 if (typeof (GetParentResourceName) !== 'undefined') {
                     fetch(`https://${GetParentResourceName()}/menuSelected`, {
                         method: 'POST',
@@ -455,7 +437,6 @@
             }
         }
 
-        // إظهار الإشعار
         function showNotification(index) {
             console.log('Function showNotification called for index:', index);
             const option = menuOptions[index];
@@ -491,7 +472,6 @@
             }, 4000);
         }
 
-        // إشعار ترحيبي
         function showWelcomeNotification() {
             console.log('Showing welcome notification.');
             const notification = document.createElement('div');
@@ -520,29 +500,26 @@
             }, 4000);
         }
 
-        // تهيئة أولية
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM Content Loaded. Initializing menu...');
-            updateSelection(currentIndex); // تأكد من تحديث التحديد عند التحميل
+            updateSelection(currentIndex);
             
             setTimeout(() => {
                 showWelcomeNotification();
             }, 500);
 
-            // إضافة معالجات أحداث للماوس (للاختبار المباشر في المتصفح)
             menuItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const index = parseInt(this.dataset.index);
                     console.log('Clicked item with index:', index);
                     updateSelection(index);
-                    selectEffect(index); // قم بتشغيل تأثير التحديد والإشعار عند النقر
+                    selectEffect(index);
                 });
             });
 
             console.log('✅ Enhanced Menu ready for FiveM integration');
         });
 
-        // استقبال رسائل من FiveM
         window.addEventListener('message', function(event) {
             const data = event.data;
             console.log('📨 Message from FiveM:', data);
@@ -567,73 +544,19 @@
                     updateSelection(currentIndex);
                 } else if (data.type === 'enter') {
                     console.log('Received enter request. Simulating selection.');
-                    selectEffect(currentIndex); // تفعيل العنصر الحالي
+                    selectEffect(currentIndex);
                 } else if (data.type === 'openMenu') {
                     console.log('Received openMenu request.');
-                    menuContainer.style.display = 'flex'; // أظهر القائمة
-                    updateSelection(currentIndex); // تأكد من تحديث التحديد عند الفتح
+                    menuContainer.style.display = 'flex';
+                    updateSelection(currentIndex);
                 } else if (data.type === 'closeMenu') {
                     console.log('Received closeMenu request.');
-                    menuContainer.style.display = 'none'; // أخفي القائمة
+                    menuContainer.style.display = 'none';
                 }
             } catch (error) {
                 console.error('Error processing message from FiveM:', error);
             }
         });
-
-        // هذا الجزء يفترض وجود `GetParentResourceName` في بيئة FiveM
-        // إذا كنت تختبر في متصفح عادي، سيعطي خطأ، وهو طبيعي.
-        if (typeof (GetParentResourceName) === 'undefined') {
-            console.warn('Running outside FiveM environment. `GetParentResourceName` is not defined.');
-            // يمكنك إضافة معالجات أحداث لوحة المفاتيح هنا للاختبار اليدوي
-            document.addEventListener('keydown', function(e) {
-                if (menuContainer.style.display === 'none') return; // لا تعمل إذا كانت القائمة مخفية
-                if (e.key === 'ArrowUp' || e.key === 'W' || e.key === 'w') {
-                    e.preventDefault();
-                    currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
-                    updateSelection(currentIndex);
-                    console.log('Simulated moveUp. New index:', currentIndex);
-                } else if (e.key === 'ArrowDown' || e.key === 'S' || e.key === 's') {
-                    e.preventDefault();
-                    currentIndex = (currentIndex + 1) % menuItems.length;
-                    updateSelection(currentIndex);
-                    console.log('Simulated moveDown. New index:', currentIndex);
-                } else if (e.key === 'Enter') {
-                    e.preventDefault();
-                    selectEffect(currentIndex);
-                    console.log('Simulated enter key press.');
-                } else if (e.key === 'Escape') {
-                    e.preventDefault();
-                    menuContainer.style.display = 'none';
-                    console.log('Simulated escape key press. Menu hidden.');
-                }
-            });
-
-            // زر لفتح القائمة في وضع الاختبار
-            const testButton = document.createElement('button');
-            testButton.textContent = 'Toggle Menu (Test Only)';
-            testButton.style.position = 'fixed';
-            testButton.style.top = '10px';
-            testButton.style.right = '10px';
-            testButton.style.padding = '10px';
-            testButton.style.background = '#64ffb4';
-            testButton.style.color = '#000';
-            testButton.style.border = 'none';
-            testButton.style.borderRadius = '5px';
-            testButton.style.cursor = 'pointer';
-            testButton.style.zIndex = '10000';
-            document.body.appendChild(testButton);
-
-            testButton.addEventListener('click', () => {
-                if (menuContainer.style.display === 'none' || menuContainer.style.display === '') {
-                    menuContainer.style.display = 'flex';
-                    updateSelection(currentIndex);
-                    showWelcomeNotification(); // أظهر إشعار الترحيب عند الفتح
-                } else {
-                    menuContainer.style.display = 'none';
-                }
-            });
-        }
     </script>
 </body>
 </html>
