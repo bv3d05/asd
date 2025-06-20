@@ -1,22 +1,648 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DUI Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main Menu - Enhanced</title>
     <style>
-        body {
-            background-color: #00FF00; /* أخضر ساطع */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /*
+        تم تعليق استيراد الخطوط الخارجية كخطوة أولى في استكشاف الأخطاء وإصلاحها.
+        إذا عملت القائمة بعد هذا التعديل، فهذا يشير إلى أن الخطوط الخارجية قد تكون مشكلة.
+        يمكنك إعادة تفعيلها لاحقًا إذا كانت المشكلة في مكان آخر.
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        */
+        
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            font-size: 5em;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /*
+            تأكد من الشفافية لـ FiveM.
+            'transparent !important' لـ background-color يجب أن يكون كافيًا.
+            */
+            background-color: transparent !important; 
+            overflow: hidden;
+            /* تم تغيير الخط إلى خط آمن للويب للاختبار */
+            font-family: 'Arial', sans-serif; 
+        }
+
+        body {
             color: white;
+            cursor: default;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 30px;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            background-color: transparent !important;
+        }
+
+        .menu-container {
+            width: 340px;
+            height: auto;
+            min-height: 620px;
+            background: rgba(0, 0, 0, 0.7); /* استخدم لون خلفية شبه شفاف بدلاً من شفافية كاملة مع backdrop-filter */
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 180, 0.3);
+            /*
+            تم إصلاح خطأ box-shadow. يمكنك ضبط القيم حسب رغبتك.
+            إذا كنت لا تزال ترى المربع الأسود، يمكنك تجربة إزالة box-shadow تمامًا.
+            */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4), /* ظل خارجي */
+                inset 0 0 20px rgba(100, 255, 180, 0.1); /* ظل داخلي لإعطاء عمق */
+            overflow: hidden;
+            animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            /*
+            تم تعليق backdrop-filter لأنها غالبًا ما تسبب مشاكل في CEF.
+            -webkit-backdrop-filter هو بادئة لمتصفحات WebKit (بما في ذلك Chromium).
+            */
+            /* backdrop-filter: blur(20px) saturate(180%); */ 
+            /* -webkit-backdrop-filter: blur(20px) saturate(180%); */
+            position: relative;
+        }
+
+        .menu-container::before {
+            display: none !important;
+        }
+
+        @keyframes menuSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.95);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .menu-header {
+            background: linear-gradient(135deg, 
+                rgba(100, 255, 180, 0.9) 0%,
+                rgba(64, 224, 208, 0.8) 50%,
+                rgba(0, 206, 209, 0.9) 100%);
+            padding: 28px 24px;
+            text-align: center;
+            border-bottom: 1px solid rgba(100, 255, 180, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 70%);
+            animation: headerShine 4s infinite;
+        }
+
+        @keyframes headerShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .menu-title {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            text-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(100, 255, 180, 0.6);
+            color: #ffffff;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-subtitle {
+            font-size: 12px;
+            opacity: 0.95;
+            color: #e8f8f5;
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-items {
+            padding: 12px 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(100, 255, 180, 0.08);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            user-select: none;
+            background: transparent !important; /* تأكد من الشفافية لـ hover shine */
+            min-height: 52px;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(100, 255, 180, 0.1), 
+                transparent);
+            transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item.selected {
+            background: linear-gradient(90deg, 
+                rgba(100, 255, 180, 0.25) 0%, 
+                rgba(100, 255, 180, 0.08) 100%);
+            border-left: 4px solid #64ffb4;
+            padding-left: 24px;
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 
+                inset 0 0 30px rgba(100, 255, 180, 0.15),
+                0 4px 20px rgba(100, 255, 180, 0.2);
+        }
+
+        .menu-item .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            opacity: 0.85;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .menu-item.selected .icon {
+            opacity: 1;
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 8px rgba(100, 255, 180, 0.6));
+        }
+
+        .menu-item .text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 500;
+            color: #f8f9fa;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-item.selected .text {
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 0 12px rgba(100, 255, 180, 0.4);
+        }
+
+        .menu-item .arrow {
+            font-size: 16px;
+            color: rgba(100, 255, 180, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: bold;
+        }
+
+        .menu-item.selected .arrow {
+            color: #64ffb4;
+            transform: translateX(6px) scale(1.3);
+            filter: drop-shadow(0 0 6px rgba(100, 255, 180, 0.8));
+        }
+
+        .menu-footer {
+            background: transparent !important;
+            padding: 20px 28px;
+            font-size: 12px;
+            color: #cbd5e0;
+            border-top: 1px solid rgba(100, 255, 180, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 55px;
+        }
+
+        .menu-footer .version {
+            color: #64ffb4;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(100, 255, 180, 0.4);
+        }
+
+        .menu-footer .counter {
+            color: #64ffb4;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 4px 12px;
+            background: rgba(100, 255, 180, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 180, 0.3);
+        }
+
+        .menu-item.clicked {
+            animation: clickPulse 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes clickPulse {
+            0% { 
+                transform: translateX(8px) scale(1.02);
+                box-shadow: inset 0 0 30px rgba(100, 255, 180, 0.15);
+            }
+            50% { 
+                transform: translateX(15px) scale(1.05);
+                box-shadow: 
+                    inset 0 0 40px rgba(100, 255, 180, 0.3),
+                    0 0 25px rgba(100, 255, 180, 0.4);
+            }
+            100% { 
+                transform: translateX(8px) scale(1.02);
+                box-shadow: inset 0 0 30px rgba(100, 255, 180, 0.15);
+            }
+        }
+
+        /* نظام الإشعارات */
+        .notification-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .notification {
+            background: linear-gradient(135deg, 
+                rgba(100, 255, 180, 0.95) 0%,
+                rgba(64, 224, 208, 0.9) 100%);
+            color: #ffffff;
+            padding: 18px 24px;
+            border-radius: 16px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(100, 255, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            /*
+            تم تعليق backdrop-filter هنا أيضًا
+            backdrop-filter: blur(20px);
+            */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 280px;
+            animation: notificationSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 70%);
+            animation: notificationShine 3s infinite;
+        }
+
+        @keyframes notificationShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes notificationSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(100px) scale(0.8);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes notificationSlideOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100px) scale(0.8);
+                filter: blur(10px);
+            }
+        }
+
+        .notification.fade-out {
+            animation: notificationSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .notification-icon {
+            font-size: 24px;
+            margin-right: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .notification-message {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .notification-timer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 0 0 16px 16px;
+            animation: timerProgress 4s linear forwards;
+        }
+
+        @keyframes timerProgress {
+            0% { width: 100%; }
+            100% { width: 0%; }
+        }
+
+        /* تحسينات إضافية */
+        html, body {
+            background-color: transparent !important;
+        }
+        
+        .menu-container {
+            /* تم تعليق هذا الفلتر الإضافي لتبسيط العرض */
+            /* filter: contrast(1.1) brightness(1.05) saturate(1.15); */
+        }
+        
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
     </style>
 </head>
 <body>
-    <p>تم تحميل اختبار DUI</p>
+    <div class="menu-container">
+        <div class="menu-header">
+            <div class="menu-title">main</div>
+            <div class="menu-subtitle">Advanced Menu System</div>
+        </div>
+
+        <div class="menu-items">
+            <div class="menu-item" data-index="0" data-action="self">
+                <div class="icon">👤</div>
+                <div class="text">Self</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="1" data-action="online">
+                <div class="icon">🌐</div>
+                <div class="text">Online</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="2" data-action="combat">
+                <div class="icon">⚔️</div>
+                <div class="text">Combat/Weapons</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="3" data-action="visual">
+                <div class="icon">👁️</div>
+                <div class="text">Visual</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item selected" data-index="4" data-action="vehicle">
+                <div class="icon">🚗</div>
+                <div class="text">Vehicle</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="5" data-action="misc">
+                <div class="icon">📂</div>
+                <div class="text">Miscellaneous</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="6" data-action="destructive">
+                <div class="icon">💥</div>
+                <div class="text">Destructive</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="7" data-action="triggers">
+                <div class="icon">⚡</div>
+                <div class="text">Triggers</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="8" data-action="settings">
+                <div class="icon">⚙️</div>
+                <div class="text">Settings</div>
+                <div class="arrow">»</div>
+            </div>
+        </div>
+
+        <div class="menu-footer">
+            <span class="version">v2.0 | main Enhanced</span>
+            <span class="counter">5/9</span>
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer">
+    </div>
+
+    <script>
+        console.log('🌟 main Menu v2.0 - Enhanced Modern Design');
+        
+        let currentIndex = 4;
+        const menuItems = document.querySelectorAll('.menu-item');
+        const counter = document.querySelector('.counter');
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        // أسماء الخيارات مع الأيقونات
+        const menuOptions = [
+            { name: "Self", icon: "👤", desc: "Player Options" },
+            { name: "Online", icon: "🌐", desc: "Online Features" },
+            { name: "Combat/Weapons", icon: "⚔️", desc: "Weapon System" },
+            { name: "Visual", icon: "👁️", desc: "Visual Effects" },
+            { name: "Vehicle", icon: "🚗", desc: "Vehicle Menu" },
+            { name: "Miscellaneous", icon: "📂", desc: "Other Options" },
+            { name: "Destructive", icon: "💥", desc: "Destruction Tools" },
+            { name: "Triggers", icon: "⚡", desc: "Event Triggers" },
+            { name: "Settings", icon: "⚙️", desc: "System Settings" }
+        ];
+
+        // تحديث التحديد
+        function updateSelection(index) {
+            if (index !== undefined) {
+                currentIndex = index;
+            }
+            
+            console.log('🔄 Selection updated to:', currentIndex);
+            
+            menuItems.forEach((item, i) => {
+                item.classList.remove('selected');
+                if (i === currentIndex) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            counter.textContent = `${currentIndex + 1}/${menuItems.length}`; // عدلت هنا لجعلها ديناميكية
+        }
+
+        // تأثير الاختيار مع الإشعار
+        function selectEffect(index) {
+            if (index !== undefined) {
+                currentIndex = index;
+            }
+            
+            const selectedItem = menuItems[currentIndex];
+            if (selectedItem) {
+                selectedItem.classList.add('clicked');
+                setTimeout(() => selectedItem.classList.remove('clicked'), 400);
+                
+                // إظهار الإشعار
+                showNotification(currentIndex);
+                
+                console.log('🎯 Select effect applied with notification');
+            }
+        }
+
+        // إظهار الإشعار
+        function showNotification(index) {
+            const option = menuOptions[index];
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">${option.icon}</div>
+                    <div class="notification-text">
+                        <div class="notification-title">تم التفعيل</div>
+                        <div class="notification-message">${option.name} - ${option.desc}</div>
+                    </div>
+                </div>
+                <div class="notification-timer"></div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            // إزالة الإشعار بعد 4 ثواني
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 4000);
+        }
+
+        // تهيئة أولية
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelection();
+            console.log('🌟 main Menu Enhanced ready');
+            
+            // إشعار ترحيبي
+            setTimeout(() => {
+                showWelcomeNotification();
+            }, 500);
+        });
+
+        // إشعار ترحيبي
+        function showWelcomeNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">🎉</div>
+                    <div class="notification-text">
+                        <div class="notification-title">مرحباً بك</div>
+                        <div class="notification-message">تم تحميل منيو main بنجاح</div>
+                    </div>
+                </div>
+                <div class="notification-timer"></div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 4000);
+        }
+
+        // استقبال رسائل من FiveM
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            console.log('📨 Message from FiveM:', data);
+            
+            try {
+                if (data.type === 'updateSelection') {
+                    updateSelection(data.currentIndex);
+                } else if (data.type === 'selectEffect') {
+                    selectEffect(data.index);
+                } else if (data.type === 'showNotification') {
+                    showNotification(data.index || currentIndex);
+                }
+            } catch (error) {
+                console.error('Error processing message:', error);
+            }
+        });
+
+        console.log('✅ Enhanced Menu ready for FiveM integration');
+    </script>
 </body>
 </html>
