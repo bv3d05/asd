@@ -1,69 +1,70 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <title>main Menu - Enhanced</title>
     <style>
-        /* الأنماط العامة وإعادة تعيين CSS */
+        /*
+        تم تعليق استيراد الخطوط الخارجية كخطوة أولى في استكشاف الأخطاء وإصلاحها.
+        إذا عملت القائمة بعد هذا التعديل، فهذا يشير إلى أن الخطوط الخارجية قد تكون مشكلة.
+        يمكنك إعادة تفعيلها لاحقًا إذا كانت المشكلة في مكان آخر.
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        */
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* التأكد من تطبيق antialiasing للخطوط */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
         }
 
         html, body {
+            margin: 0;
+            padding: 0;
             width: 100%;
             height: 100%;
-            background: transparent !important; /* مهم جداً للـ NUI */
-            overflow: hidden; /* لمنع ظهور أشرطة التمرير غير المرغوب فيها */
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            color: white; /* لون النص الافتراضي */
-            cursor: default;
+            background-color: transparent !important; 
+            overflow: hidden;
+            font-family: 'Arial', sans-serif; 
         }
 
         body {
+            color: white;
+            cursor: default;
             display: flex;
-            justify-content: flex-start; /* المحاذاة لليسار */
-            align-items: center; /* التوسيط عمودياً */
-            padding-left: 30px; /* مسافة من اليسار */
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 30px;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
             background-color: transparent !important;
         }
 
-        /* حاوية القائمة الرئيسية */
         .menu-container {
-            width: 340px; /* عرض ثابت */
-            height: auto; /* ارتفاع تلقائي */
-            max-height: 90vh; /* لتجنب تجاوز الشاشة */
-            background: transparent !important;
+            width: 340px;
+            /* تم زيادة الارتفاع لتبدو أطول */
+            height: auto;
+            min-height: 900px; /* تم زيادة هذه القيمة بشكل ملحوظ */
+            background: rgba(0, 0, 0, 0.7); 
             border-radius: 20px;
             border: 1px solid rgba(100, 255, 180, 0.3);
-            box-shadow: 0 0 30px rgba(100, 255, 180, 0.4); /* ظل خفيف حول القائمة */
-            overflow: hidden; /* لإخفاء أي محتوى يتجاوز الحدود الدائرية */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 0 20px rgba(100, 255, 180, 0.1); 
+            overflow: hidden;
             animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            /* backdrop-filter: blur(20px) saturate(180%); */ 
+            /* -webkit-backdrop-filter: blur(20px) saturate(180%); */
             position: relative;
-            display: none; /* مخفي افتراضياً، يتم إظهاره بالـ JS */
-            flex-direction: column; /* لجعل الرأس والقائمة والفوتر تتكدس */
-            z-index: 1000; /* لضمان ظهوره فوق العناصر الأخرى */
+            /* إضافة flexbox لتحسين توزيع المحتوى داخله */
+            display: flex;
+            flex-direction: column;
         }
 
-        /* قبل عنصر menu-container - تم إزالته لأن الخلفية الشفافة هي المطلوبة */
         .menu-container::before {
             display: none !important;
         }
 
-        /* انيميشن ظهور القائمة */
         @keyframes menuSlideIn {
             0% {
                 opacity: 0;
@@ -77,7 +78,6 @@
             }
         }
 
-        /* رأس القائمة */
         .menu-header {
             background: linear-gradient(135deg, 
                 rgba(100, 255, 180, 0.9) 0%,
@@ -88,7 +88,7 @@
             border-bottom: 1px solid rgba(100, 255, 180, 0.2);
             position: relative;
             overflow: hidden;
-            flex-shrink: 0; /* يمنع الرأس من الانكماش */
+            flex-shrink: 0; /* لا يسمح بانكماش الهيدر */
         }
 
         .menu-header::before {
@@ -134,33 +134,24 @@
             z-index: 1;
         }
 
-        /* قائمة العناصر (المحتوى الرئيسي) */
         .menu-items {
-            flex-grow: 1; /* يسمح للقائمة بالتوسع لملء المساحة المتاحة */
-            overflow-y: auto; /* تمكين التمرير إذا تجاوز المحتوى الارتفاع */
             padding: 12px 0;
-            scrollbar-width: none; /* إخفاء شريط التمرير لـ Firefox */
-            -ms-overflow-style: none;  /* إخفاء شريط التمرير لـ IE/Edge */
+            flex-grow: 1; /* يسمح للعناصر بالنمو لملء المساحة المتاحة */
+            overflow-y: auto; /* إضافة شريط تمرير إذا زادت العناصر عن الارتفاع */
         }
 
-        /* إخفاء شريط التمرير لـ Webkit (Chrome, Safari) */
-        .menu-items::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* عنصر القائمة الفردي (التاب) */
         .menu-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 24px; /* تم تقليل الـ padding لتقصير التابات */
+            padding: 16px 24px;
             border-bottom: 1px solid rgba(100, 255, 180, 0.08);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             user-select: none;
-            background: transparent !important;
-            min-height: 40px; /* تقليل الارتفاع الأدنى */
+            background: transparent !important; 
+            min-height: 52px;
             overflow: hidden;
         }
 
@@ -176,7 +167,6 @@
                 rgba(100, 255, 180, 0.1), 
                 transparent);
             transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 0; /* التأكد من أنه خلف المحتوى */
         }
 
         .menu-item:hover::before {
@@ -187,7 +177,6 @@
             border-bottom: none;
         }
 
-        /* العنصر المحدد (selected) */
         .menu-item.selected {
             background: linear-gradient(90deg, 
                 rgba(100, 255, 180, 0.25) 0%, 
@@ -200,19 +189,17 @@
                 0 4px 20px rgba(100, 255, 180, 0.2);
         }
 
-        /* الأيقونة (Emoji) */
         .menu-item .icon {
-            width: 20px; /* حجم أصغر للأيقونة */
-            height: 20px; /* حجم أصغر للأيقونة */
-            margin-right: 12px; /* مسافة أصغر بين الأيقونة والنص */
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
             opacity: 0.85;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 16px; /* حجم خط أصغر للأيموجي */
+            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-            flex-shrink: 0; /* منع الأيقونة من الانكماش */
         }
 
         .menu-item.selected .icon {
@@ -221,17 +208,13 @@
             filter: drop-shadow(0 0 8px rgba(100, 255, 180, 0.6));
         }
 
-        /* النص (الكلمة) */
         .menu-item .text {
             flex: 1;
-            font-size: 13px; /* حجم خط أصغر للكلمة */
+            font-size: 15px;
             font-weight: 500;
             color: #f8f9fa;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            white-space: nowrap; /* منع التفاف النص */
-            overflow: hidden; /* إخفاء النص الزائد */
-            text-overflow: ellipsis; /* إضافة نقاط التتبع (...) للنص الزائد */
         }
 
         .menu-item.selected .text {
@@ -245,7 +228,6 @@
             color: rgba(100, 255, 180, 0.7);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: bold;
-            flex-shrink: 0; /* منع السهم من الانكماش */
         }
 
         .menu-item.selected .arrow {
@@ -254,106 +236,35 @@
             filter: drop-shadow(0 0 6px rgba(100, 255, 180, 0.8));
         }
 
-        /* عناصر قائمة Self الفرعية (الخيارات والتشيك بوكس) */
-        .self-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 24px; /* نفس الـ padding للعناصر الرئيسية */
-            border-bottom: 1px solid rgba(100, 255, 180, 0.05); /* border أفتح قليلاً */
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            user-select: none;
+        .menu-footer {
             background: transparent !important;
-            min-height: 40px;
-            overflow: hidden;
-            padding-left: 36px; /* مسافة إضافية لتكون تحت "Self" */
-        }
-
-        .self-option.selected {
-            background: linear-gradient(90deg, 
-                rgba(100, 255, 180, 0.2) 0%, /* تظليل أفتح قليلاً */
-                rgba(100, 255, 180, 0.05) 100%);
-            border-left: 4px solid #64ffb4;
-            transform: translateX(8px) scale(1.02);
-            box-shadow: 
-                inset 0 0 20px rgba(100, 255, 180, 0.1), /* ظل أفتح */
-                0 2px 10px rgba(100, 255, 180, 0.15);
-        }
-
-        .self-option .icon {
-            font-size: 14px; /* أيقونات أصغر لخيارات Self */
-            margin-right: 10px;
-            width: 18px; /* عرض ثابت */
-            height: 18px; /* ارتفاع ثابت */
-        }
-
-        .self-option .text {
-            font-size: 13px; /* نص أصغر */
-            font-weight: 400; /* وزن خط أخف */
-            color: #e0e0e0;
-        }
-
-        .self-option.selected .icon,
-        .self-option.selected .text {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(100, 255, 180, 0.3);
-        }
-
-        /* Checkbox Styling */
-        .self-option .checkbox-container {
+            padding: 20px 28px;
+            font-size: 12px;
+            color: #cbd5e0;
+            border-top: 1px solid rgba(100, 255, 180, 0.15);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px; /* مسافة بين التشيك بوكس والنص */
-            flex-shrink: 0;
-            font-size: 13px; /* حجم خط التشيك بوكس نفسه */
-            color: #e0e0e0;
+            min-height: 55px;
+            flex-shrink: 0; /* لا يسمح بانكماش الفوتر */
         }
 
-        .custom-checkbox {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 16px; /* حجم أصغر للتشيك بوكس */
-            height: 16px;
-            border: 2px solid #64ffb4; /* لون حدود التشيك بوكس */
-            border-radius: 4px; /* زوايا مستديرة قليلاً */
-            background-color: rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            position: relative;
-            outline: none;
-            transition: all 0.2s ease-in-out;
-            flex-shrink: 0;
+        .menu-footer .version {
+            color: #64ffb4;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(100, 255, 180, 0.4);
         }
 
-        .custom-checkbox:checked {
-            background-color: #64ffb4; /* لون عند التحديد */
-            border-color: #64ffb4;
+        .menu-footer .counter {
+            color: #64ffb4;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 4px 12px;
+            background: rgba(100, 255, 180, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 180, 0.3);
         }
 
-        .custom-checkbox:checked::before {
-            content: '\2713'; /* علامة صح يونيكود */
-            display: block;
-            color: #1a1a1a; /* لون علامة الصح (داكن لتباين أفضل) */
-            font-size: 10px; /* حجم علامة الصح */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .custom-checkbox:focus {
-            box-shadow: 0 0 0 3px rgba(100, 255, 180, 0.4);
-        }
-
-        .checkbox-container label {
-            cursor: pointer;
-            user-select: none;
-        }
-
-
-        /* تأثير النقر */
         .menu-item.clicked {
             animation: clickPulse 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -375,54 +286,20 @@
             }
         }
 
-        /* تذييل القائمة */
-        .menu-footer {
-            background: transparent !important;
-            padding: 16px 24px; /* تقليل الـ padding للفوتر */
-            font-size: 12px;
-            color: #cbd5e0;
-            border-top: 1px solid rgba(100, 255, 180, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 45px; /* تقليل الارتفاع الأدنى */
-            flex-shrink: 0; /* يمنع الفوتر من الانكماش */
-        }
-
-        .menu-footer .version {
-            color: #64ffb4;
-            font-weight: 600;
-            text-shadow: 0 0 8px rgba(100, 255, 180, 0.4);
-        }
-
-        .menu-footer .counter {
-            color: #64ffb4;
-            font-weight: 700;
-            font-size: 14px;
-            padding: 4px 12px;
-            background: rgba(100, 255, 180, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(100, 255, 180, 0.3);
-        }
-
         /* نظام الإشعارات */
         .notification-container {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            /* تم تعديل الموقع ليكون في أسفل اليمين */
+            bottom: 30px; /* مسافة من الأسفل */
+            right: 30px;  /* مسافة من اليمين */
+            top: auto;    /* تأكد من عدم وجود قيمة لـ top */
+            left: auto;   /* تأكد من عدم وجود قيمة لـ left */
             z-index: 9999;
-            pointer-events: none; /* يسمح بالضغط على العناصر خلفه */
-            display: flex;
-            flex-direction: column;
-            gap: 10px; /* مسافة بين الإشعارات */
-            max-height: 90vh; /* لتجنب تجاوز الشاشة */
-            overflow-y: auto; /* تمكين التمرير إذا كان هناك العديد من الإشعارات */
-            scrollbar-width: none; /* إخفاء شريط التمرير لـ Firefox */
-            -ms-overflow-style: none;  /* إخفاء شريط التمرير لـ IE/Edge */
-        }
-
-        .notification-container::-webkit-scrollbar {
-            display: none;
+            pointer-events: none;
+            display: flex; /* يسمح بترتيب الإشعارات عموديًا */
+            flex-direction: column; /* يضع الإشعارات فوق بعضها */
+            gap: 15px; /* مسافة بين الإشعارات */
+            align-items: flex-end; /* لمحاذاة الإشعارات إلى اليمين */
         }
 
         .notification {
@@ -430,19 +307,18 @@
                 rgba(100, 255, 180, 0.95) 0%,
                 rgba(64, 224, 208, 0.9) 100%);
             color: #ffffff;
-            padding: 16px 20px; /* تقليل الـ padding للإشعارات */
+            padding: 18px 24px;
             border-radius: 16px;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 0 0 40px rgba(100, 255, 180, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
+            /* backdrop-filter: blur(20px); */
             border: 1px solid rgba(255, 255, 255, 0.2);
-            min-width: 260px; /* عرض أصغر للإشعارات */
+            min-width: 280px;
             animation: notificationSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
-            margin-left: auto; /* لدفع الإشعارات لليمين إذا كانت الحاوية أوسع */
         }
 
         .notification::before {
@@ -457,7 +333,6 @@
                 rgba(255, 255, 255, 0.1) 50%, 
                 transparent 70%);
             animation: notificationShine 3s infinite;
-            z-index: 0;
         }
 
         @keyframes notificationShine {
@@ -503,8 +378,8 @@
         }
 
         .notification-icon {
-            font-size: 20px; /* حجم أصغر لأيقونة الإشعار */
-            margin-right: 10px; /* مسافة أصغر */
+            font-size: 24px;
+            margin-right: 12px;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
@@ -513,14 +388,14 @@
         }
 
         .notification-title {
-            font-size: 15px; /* حجم خط أصغر لعنوان الإشعار */
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 3px; /* مسافة أقل */
+            margin-bottom: 4px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .notification-message {
-            font-size: 13px; /* حجم خط أصغر لرسالة الإشعار */
+            font-size: 14px;
             opacity: 0.95;
             font-weight: 500;
         }
@@ -533,7 +408,6 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 0 0 16px 16px;
             animation: timerProgress 4s linear forwards;
-            z-index: 1; /* للتأكد من ظهوره فوق الخلفية */
         }
 
         @keyframes timerProgress {
@@ -542,24 +416,79 @@
         }
 
         /* تحسينات إضافية */
+        html, body {
+            background-color: transparent !important;
+        }
+        
         .menu-container {
-            filter: contrast(1.1) brightness(1.05) saturate(1.15);
+            /* filter: contrast(1.1) brightness(1.05) saturate(1.15); */
+        }
+        
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
     </style>
 </head>
 <body>
-    <div class="menu-container" id="mainMenuContainer">
+    <div class="menu-container">
         <div class="menu-header">
-            <div class="menu-title">AURA</div>
+            <div class="menu-title">main</div>
             <div class="menu-subtitle">Advanced Menu System</div>
         </div>
 
-        <div class="menu-items" id="menuList">
+        <div class="menu-items">
+            <div class="menu-item" data-index="0" data-action="self">
+                <div class="icon">👤</div>
+                <div class="text">Self</div>
+                <div class="arrow">»</div>
             </div>
+            <div class="menu-item" data-index="1" data-action="online">
+                <div class="icon">🌐</div>
+                <div class="text">Online</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="2" data-action="combat">
+                <div class="icon">⚔️</div>
+                <div class="text">Combat/Weapons</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="3" data-action="visual">
+                <div class="icon">👁️</div>
+                <div class="text">Visual</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item selected" data-index="4" data-action="vehicle">
+                <div class="icon">🚗</div>
+                <div class="text">Vehicle</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="5" data-action="misc">
+                <div class="icon">📂</div>
+                <div class="text">Miscellaneous</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="6" data-action="destructive">
+                <div class="icon">💥</div>
+                <div class="text">Destructive</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="7" data-action="triggers">
+                <div class="icon">⚡</div>
+                <div class="text">Triggers</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="8" data-action="settings">
+                <div class="icon">⚙️</div>
+                <div class="text">Settings</div>
+                <div class="arrow">»</div>
+            </div>
+        </div>
 
         <div class="menu-footer">
-            <span class="version">v2.0 | Aura Enhanced</span>
-            <span class="counter" id="itemCounter">0/0</span>
+            <span class="version">v2.0 | main Enhanced</span>
+            <span class="counter">5/9</span>
         </div>
     </div>
 
@@ -567,183 +496,75 @@
     </div>
 
     <script>
-        console.log('🌟 Aura Menu v2.0 - Enhanced Modern Design');
+        console.log('🌟 main Menu v2.0 - Enhanced Modern Design');
         
-        let currentMenuLevel = 'main'; // 'main' or 'self-submenu'
-        let currentSelectionIndex = 0; // Current index within the active menu
-        let activeMenuItems = []; // Reference to currently displayed menu items (main or submenu)
-
-        // Menu Data Structure - updated with more specific types
-        const menuData = {
-            main: [
-                { name: "Self", icon: "👤", desc: "Player Options", type: "submenu" },
-                { name: "Online", icon: "🌐", desc: "Online Features", type: "action" }, 
-                { name: "Combat/Weapons", icon: "⚔️", desc: "Weapon System", type: "action" },
-                { name: "Visual", icon: "👁️", desc: "Visual Effects", type: "action" },
-                { name: "Vehicle", icon: "🚗", desc: "Vehicle Menu", type: "action" },
-                { name: "Miscellaneous", icon: "📂", desc: "Other Options", type: "action" },
-                { name: "Destructive", icon: "💥", desc: "Destruction Tools", type: "action" },
-                { name: "Triggers", icon: "⚡", desc: "Event Triggers", type: "action" },
-                { name: "Settings", icon: "⚙️", desc: "System Settings", type: "action" }
-            ],
-            self: [
-                { name: "Back", icon: "⬅️", type: "back" }, // Back button for submenus
-                { name: "Fly Mode", icon: "✈️", type: "checkbox", action: "toggleNoclip", state: false },
-                { name: "God Mode", icon: "🛡️", type: "checkbox", action: "toggleGodMode", state: false },
-                { name: "Invisible", icon: "👻", type: "checkbox", action: "toggleInvisible", state: false },
-                { name: "Heal Player", icon: "❤️", type: "action", action: "healPlayer" }
-            ]
-        };
-
-        const menuList = document.getElementById('menuList');
-        const itemCounter = document.getElementById('itemCounter');
+        let currentIndex = 4;
+        const menuItems = document.querySelectorAll('.menu-item');
+        const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
-        const mainMenuContainer = document.getElementById('mainMenuContainer');
 
-        // Function to render menu items based on current level
-        function renderMenu(level) {
-            menuList.innerHTML = ''; // Clear existing items
-            let itemsToRender = [];
-
-            if (level === 'main') {
-                itemsToRender = menuData.main;
-                document.querySelector('.menu-title').textContent = "AURA"; // Update header
-                currentMenuLevel = 'main';
-            } else if (level === 'self-submenu') {
-                itemsToRender = menuData.self;
-                document.querySelector('.menu-title').textContent = "SELF OPTIONS"; // Update header
-                currentMenuLevel = 'self-submenu';
-            }
-
-            itemsToRender.forEach((item, index) => {
-                let itemHtml = '';
-                if (item.type === "checkbox") {
-                    itemHtml = `
-                        <div class="self-option" data-index="${index}" data-type="${item.type}" data-action="${item.action}">
-                            <div class="icon">${item.icon}</div>
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox-${item.action}" class="custom-checkbox" ${item.state ? 'checked' : ''}>
-                                <label for="checkbox-${item.action}">${item.name}</label>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Use 'menu-item' class for main items and 'self-option' for submenu items (except back)
-                    const itemClass = (level === 'main' || item.type === 'back') ? 'menu-item' : 'self-option';
-                    const arrowHtml = (item.type === 'submenu' || item.type === 'back') ? '<div class="arrow">»</div>' : '';
-                    itemHtml = `
-                        <div class="${itemClass}" data-index="${index}" data-type="${item.type}" data-action="${item.action || ''}">
-                            <div class="icon">${item.icon}</div>
-                            <div class="text">${item.name}</div>
-                            ${arrowHtml}
-                        </div>
-                    `;
-                }
-                menuList.innerHTML += itemHtml;
-            });
-
-            activeMenuItems = Array.from(menuList.querySelectorAll('.menu-item, .self-option')); // Update activeMenuItems reference
-            updateSelection(0); // Select the first item by default
-        }
+        // أسماء الخيارات مع الأيقونات
+        const menuOptions = [
+            { name: "Self", icon: "👤", desc: "Player Options" },
+            { name: "Online", icon: "🌐", desc: "Online Features" },
+            { name: "Combat/Weapons", icon: "⚔️", desc: "Weapon System" },
+            { name: "Visual", icon: "👁️", desc: "Visual Effects" },
+            { name: "Vehicle", icon: "🚗", desc: "Vehicle Menu" },
+            { name: "Miscellaneous", icon: "📂", desc: "Other Options" },
+            { name: "Destructive", icon: "💥", desc: "Destruction Tools" },
+            { name: "Triggers", icon: "⚡", desc: "Event Triggers" },
+            { name: "Settings", icon: "⚙️", desc: "System Settings" }
+        ];
 
         // تحديث التحديد
-        function updateSelection(newIndex) {
-            if (newIndex !== undefined) {
-                currentSelectionIndex = newIndex;
-            }
-
-            // Ensure index is within bounds
-            if (currentSelectionIndex < 0) {
-                currentSelectionIndex = activeMenuItems.length - 1;
-            } else if (currentSelectionIndex >= activeMenuItems.length) {
-                currentSelectionIndex = 0;
+        function updateSelection(index) {
+            if (index !== undefined) {
+                currentIndex = index;
             }
             
-            activeMenuItems.forEach((item, i) => {
+            console.log('🔄 Selection updated to:', currentIndex);
+            
+            menuItems.forEach((item, i) => {
                 item.classList.remove('selected');
-                if (i === currentSelectionIndex) {
+                if (i === currentIndex) {
                     item.classList.add('selected');
-                    // Scroll into view
-                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             });
             
-            itemCounter.textContent = `${currentSelectionIndex + 1}/${activeMenuItems.length}`;
+            counter.textContent = `${currentIndex + 1}/${menuItems.length}`; 
         }
 
         // تأثير الاختيار مع الإشعار
-        function selectCurrentItem() {
-            const selectedItem = activeMenuItems[currentSelectionIndex];
+        function selectEffect(index) {
+            if (index !== undefined) {
+                currentIndex = index;
+            }
+            
+            const selectedItem = menuItems[currentIndex];
             if (selectedItem) {
                 selectedItem.classList.add('clicked');
                 setTimeout(() => selectedItem.classList.remove('clicked'), 400);
                 
-                const itemType = selectedItem.dataset.type;
-                const action = selectedItem.dataset.action;
-                const indexInList = parseInt(selectedItem.dataset.index); // Get the index relative to its current list
-
-                if (currentMenuLevel === 'main') {
-                    if (itemType === 'submenu' && action === 'self') {
-                        renderMenu('self-submenu');
-                    } else if (itemType === 'action') {
-                        // For main menu actions
-                        const option = menuData.main[indexInList];
-                        sendNuiCallback('triggerAction', { action: action, message: `Selected: ${option.name}` });
-                        showNotification(option.icon, option.name, "Selected");
-                    }
-                } else if (currentMenuLevel === 'self-submenu') {
-                    if (itemType === 'back') {
-                        renderMenu('main');
-                    } else if (itemType === 'checkbox') {
-                        const checkbox = selectedItem.querySelector('.custom-checkbox');
-                        checkbox.checked = !checkbox.checked; // Toggle the checkbox
-                        handleCheckboxChange(checkbox); // Manually trigger change logic
-                    } else if (itemType === 'action') {
-                        const option = menuData.self[indexInList]; // Index relative to self submenu
-                        sendNuiCallback('triggerAction', { action: action, message: `Triggered: ${option.name}` });
-                        showNotification(option.icon, option.name, "Executed");
-                    }
-                }
+                // إظهار الإشعار
+                showNotification(currentIndex);
+                
+                console.log('🎯 Select effect applied with notification');
             }
         }
 
-        // Handle checkbox changes (from click or keyboard select)
-        function handleCheckboxChange(checkboxElement) {
-            const isChecked = checkboxElement.checked;
-            const action = checkboxElement.closest('.self-option').dataset.action;
-
-            // Update the state in our JavaScript data structure
-            const targetOption = menuData.self.find(opt => opt.action === action);
-            if (targetOption) {
-                targetOption.state = isChecked;
-            }
-
-            // Send the toggle action to Lua
-            sendNuiCallback('toggleAction', { action: action, state: isChecked });
-
-            // Show a notification
-            showNotification(targetOption.icon, targetOption.name, isChecked ? "Activated" : "Deactivated");
-        }
-
-        // Add event listener for checkbox clicks directly
-        menuList.addEventListener('change', (event) => {
-            if (event.target.classList.contains('custom-checkbox')) {
-                handleCheckboxChange(event.target);
-            }
-        });
-
-
-        // إظهار الإشعار (مُعدل ليأخذ أيقونة، عنوان، رسالة)
-        function showNotification(icon, title, message, duration = 4000) {
+        // إظهار الإشعار
+        function showNotification(index) {
+            const option = menuOptions[index];
+            
             const notification = document.createElement('div');
             notification.className = 'notification';
             
             notification.innerHTML = `
                 <div class="notification-content">
-                    <div class="notification-icon">${icon}</div>
+                    <div class="notification-icon">${option.icon}</div>
                     <div class="notification-text">
-                        <div class="notification-title">${title}</div>
-                        <div class="notification-message">${message}</div>
+                        <div class="notification-title">تم التفعيل</div>
+                        <div class="notification-message">${option.name} - ${option.desc}</div>
                     </div>
                 </div>
                 <div class="notification-timer"></div>
@@ -751,52 +572,55 @@
             
             notificationContainer.appendChild(notification);
             
-            // إزالة الإشعار بعد المدة المحددة
+            // إزالة الإشعار بعد 4 ثواني
             setTimeout(() => {
                 notification.classList.add('fade-out');
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.parentNode.removeChild(notification);
                     }
-                }, 400); // يجب أن تتوافق مع مدة انيميشن fade-out
-            }, duration);
-        }
-
-        // إرسال رسالة إلى Lua
-        function sendNuiCallback(type, data) {
-            if (window.GetParentResourceName) { // Check if in FiveM NUI context
-                $.post(`http://${GetParentResourceName()}/auraMenu:clientCallback`, JSON.stringify({ type: type, ...data }));
-                console.log(`⬆️ Sent NUI Callback: ${type}`, data);
-            } else {
-                console.warn(`[NUI] sendNuiCallback: Not in FiveM NUI context. Type: ${type}, Data:`, data);
-                // For local testing, simulate some actions
-                if (type === "toggleAction") {
-                    console.log(`Simulated: Toggling ${data.action} to ${data.state}`);
-                } else if (type === "triggerAction") {
-                    console.log(`Simulated: Triggering ${data.action}`);
-                }
-            }
+                }, 400);
+            }, 4000);
         }
 
         // تهيئة أولية
         document.addEventListener('DOMContentLoaded', function() {
-            // Render main menu initially
-            renderMenu('main');
-            updateSelection(0); // Ensure the first item is selected initially
+            updateSelection();
+            console.log('🌟 main Menu Enhanced ready');
             
-            // Send ready signal to Lua
-            sendNuiCallback('ready', {});
-
-            // إشعار ترحيبي بعد وقت قصير
+            // إشعار ترحيبي
             setTimeout(() => {
-                showNotification("🎉", "Welcome", "Menu loaded successfully", 3000);
+                showWelcomeNotification();
             }, 500);
-
-            // Hide menu on load
-            mainMenuContainer.style.display = 'none';
-
-            console.log('✅ Aura Menu Enhanced ready for FiveM integration');
         });
+
+        // إشعار ترحيبي
+        function showWelcomeNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">🎉</div>
+                    <div class="notification-text">
+                        <div class="notification-title">مرحباً بك</div>
+                        <div class="notification-message">تم تحميل منيو main بنجاح</div>
+                    </div>
+                </div>
+                <div class="notification-timer"></div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 4000);
+        }
 
         // استقبال رسائل من FiveM
         window.addEventListener('message', function(event) {
@@ -804,68 +628,19 @@
             console.log('📨 Message from FiveM:', data);
             
             try {
-                if (data.type === 'showMenu') {
-                    if (data.menuLevel === 'self-submenu') {
-                        renderMenu('self-submenu');
-                    } else {
-                        renderMenu('main');
-                    }
-                    currentSelectionIndex = data.currentIndex || 0;
-                    updateSelection(currentSelectionIndex);
-                    mainMenuContainer.style.display = 'flex'; // Use flex to show and maintain layout
-                    mainMenuContainer.style.opacity = '1'; // Ensure opacity is 1 on show
-                } else if (data.type === 'hideMenu') {
-                    mainMenuContainer.style.display = 'none';
-                } else if (data.type === 'updateSelection') {
-                    if (data.menuLevel && data.menuLevel !== currentMenuLevel) {
-                         renderMenu(data.menuLevel); // Re-render if menu level changed
-                    }
+                if (data.type === 'updateSelection') {
                     updateSelection(data.currentIndex);
-                } else if (data.type === 'selectCurrent') {
-                    selectCurrentItem();
-                } else if (data.type === 'navigateUp') {
-                    updateSelection(currentSelectionIndex - 1);
-                } else if (data.type === 'navigateDown') {
-                    updateSelection(currentSelectionIndex + 1);
-                } else if (data.type === 'backOrClose') {
-                    if (currentMenuLevel === 'self-submenu') {
-                        renderMenu('main');
-                    } else {
-                        sendNuiCallback('closeMenu', {});
-                    }
-                } else if (data.type === 'showCustomNotification') {
-                    showNotification(data.icon, data.title, data.message, data.duration || 4000);
-                } else if (data.type === 'updateToggleState') {
-                    // Update the state of a checkbox in the NUI
-                    const targetOption = menuData.self.find(opt => opt.action === data.action);
-                    if (targetOption) {
-                        targetOption.state = data.state;
-                        // If the self-submenu is currently displayed, update the checkbox visually
-                        if (currentMenuLevel === 'self-submenu') {
-                            const checkbox = document.getElementById(`checkbox-${data.action}`);
-                            if (checkbox) {
-                                checkbox.checked = data.state;
-                            }
-                        }
-                    }
+                } else if (data.type === 'selectEffect') {
+                    selectEffect(data.index);
+                } else if (data.type === 'showNotification') {
+                    showNotification(data.index || currentIndex);
                 }
             } catch (error) {
-                console.error('Error processing message from FiveM:', error);
+                console.error('Error processing message:', error);
             }
         });
 
-        // Event listener for clicks on menu items (for mouse interaction)
-        menuList.addEventListener('click', (event) => {
-            const clickedItem = event.target.closest('.menu-item, .self-option');
-            if (clickedItem) {
-                const index = Array.from(activeMenuItems).indexOf(clickedItem);
-                if (index !== -1) {
-                    currentSelectionIndex = index;
-                    updateSelection(); // Visually update selection
-                    selectCurrentItem(); // Trigger the action
-                }
-            }
-        });
+        console.log('✅ Enhanced Menu ready for FiveM integration');
     </script>
 </body>
 </html>
