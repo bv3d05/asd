@@ -309,12 +309,13 @@
 </head>
 <body>
     <div class="menu-container">
-        <div class="menu-header" id="menuHeader" style="background-image: url(&quot;https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&amp;is=68565020&amp;hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928&quot;);">
+        
+        <div class="menu-header" id="menuHeader">
             <div class="header-home-text">HOME</div>
         </div>
 
         <div class="menu-items">
-            <div class="highlight-bar" style="top: 232px;"></div>
+            <div class="highlight-bar"></div>
             <div class="menu-item" data-index="0" data-action="self">
                 <div class="icon"><i class="fa-solid fa-user"></i></div>
                 <div class="text">Self</div>
@@ -345,7 +346,7 @@
                 <div class="text">Miscellaneous</div>
                 <div class="arrow">»</div>
             </div>
-            <div class="menu-item selected" data-index="6" data-action="destructive">
+            <div class="menu-item" data-index="6" data-action="destructive">
                 <div class="icon"><i class="fa-solid fa-bomb"></i></div>
                 <div class="text">Destructive</div>
                 <div class="arrow">»</div>
@@ -364,7 +365,7 @@
 
         <div class="menu-footer">
             <span class="version">Version: Beta | 24hrs ago</span>
-            <span class="counter">7/9</span>
+            <span class="counter">1/9</span>
         </div>
     </div>
 
@@ -372,7 +373,7 @@
     </div>
 
     <script>
-        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===// هنا تحط رابط البنر
+        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
         const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا (مثال لصورة صفراء 370x150)
         // ===========================================
 
@@ -421,7 +422,7 @@
                     const topPosition = currentIndex * itemHeight + 4;
                     highlightBar.style.top = `${topPosition}px`;
                 }
-
+                
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }
         }
@@ -485,7 +486,7 @@
                     selectEffect(index);
                 });
             });
-
+            
             // استدعاء دالة تعيين صورة البنر هنا لتطبيق الصورة الافتراضية
             setHeaderImage(bannerImageUrl);
         });
