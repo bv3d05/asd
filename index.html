@@ -13,9 +13,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
+            /* تم إزالة خصائص تحسين الخطوط المحتملة للتوافق مع FiveM */
+            /* -webkit-font-smoothing: antialiased; */
+            /* -moz-osx-font-smoothing: grayscale; */
+            /* text-rendering: optimizeLegibility; */
         }
 
         html, body {
@@ -26,6 +27,10 @@
             background-color: transparent !important; /* هذا هو المفتاح للشفافية في FiveM DUI */
             overflow: hidden; /* لمنع أي أشرطة تمرير غير مرغوبة */
             font-family: 'Roboto', sans-serif;
+            /* تم إزالة خصائص تحسين الخطوط المحتملة للتوافق مع FiveM */
+            /* -webkit-font-smoothing: antialiased; */
+            /* -moz-osx-font-smoothing: grayscale; */
+            /* text-rendering: optimizeLegibility; */
         }
 
         body {
@@ -34,14 +39,12 @@
             align-items: flex-start; /* وضع القائمة من البداية عمودياً */
             padding-left: 85px; /* محاذاة لليسار بناءً على الـ 'left: 85px' الأصلي */
             padding-top: 90px; /* محاذاة للأعلى بناءً على الـ 'top: 90px' الأصلي */
-            /* لا حاجة لـ background-color هنا لأنها معرفة في html, body */
         }
 
         .menu-container {
             width: 370px;
             height: 530px;
-            /* شفافية خلفية القائمة */
-            background: rgba(12, 12, 12, 0.50);
+            background: rgba(12, 12, 12, 0.50); /* شفافية خلفية القائمة */
             border-radius: 8px;
             /* تم إزالة position: absolute و top و left; هذه الخصائص تُحدد الآن بواسطة خصائص الـ Flexbox و padding في body */
             overflow: hidden;
@@ -50,7 +53,6 @@
                 0 0 0 1px rgba(255, 255, 255, 0.03);
             display: flex;
             flex-direction: column;
-            /* للتأكد من أن القائمة نفسها شفافة للخلفية */
             z-index: 1; /* التأكد من أنها فوق أي شيء آخر في DUI */
         }
 
@@ -118,9 +120,10 @@
             left: 0;
             width: 100%;
             height: 38px;
-            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف للمربع المتحرك */
+            /* تم إزالة backdrop-filter للتوافق مع FiveM */
+            /* backdrop-filter: blur(5px); */
+            /* -webkit-backdrop-filter: blur(5px); */
             z-index: 1; /* يجب أن يكون أقل من z-index لـ menu-item لكي تظهر فوقه */
             transition: top 0.4s ease-out;
         }
@@ -179,8 +182,9 @@
 
         .menu-footer {
             background: rgba(8, 8, 8, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            /* تم إزالة backdrop-filter للتوافق مع FiveM */
+            /* backdrop-filter: blur(8px); */
+            /* -webkit-backdrop-filter: blur(8px); */
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
@@ -203,8 +207,9 @@
             font-size: 11px;
             padding: 2px 5px;
             background: rgba(255, 255, 0, 0.15);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            /* تم إزالة backdrop-filter للتوافق مع FiveM */
+            /* backdrop-filter: blur(3px); */
+            /* -webkit-backdrop-filter: blur(3px); */
             border-radius: 6px;
         }
 
@@ -220,8 +225,9 @@
 
         .notification {
             background: rgba(12, 12, 12, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            /* تم إزالة backdrop-filter للتوافق مع FiveM */
+            /* backdrop-filter: blur(12px); */
+            /* -webkit-backdrop-filter: blur(12px); */
             border: 1px solid rgba(255, 255, 0, 0.5);
             padding: 14px 18px;
             border-radius: 10px;
@@ -301,7 +307,7 @@
         }
     </style>
 </head>
-<body __processed_cc115d3e-3806-49b4-a263-3212ebff4416__="true">
+<body>
     <div class="menu-container">
         <div class="menu-header" id="menuHeader" style="background-image: url(&quot;https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&amp;is=68565020&amp;hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928&quot;);">
             <div class="header-home-text">HOME</div>
