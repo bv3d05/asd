@@ -21,11 +21,20 @@
         html, body {
             width: 100%;
             height: 100%;
-            /* التعديل النهائي هنا: إزالة أي خلفية تمامًا من HTML و Body */
-            /* هذا يجبر بيئة FiveM DUI على عرض اللعبة من خلال هذه المساحات */
-            background: none !important; 
+            margin: 0; /* تأكيد إزالة الهوامش الافتراضية */
+            padding: 0; /* تأكيد إزالة الحشوة الافتراضية */
+            background-color: transparent !important; /* هذا هو المفتاح للشفافية في FiveM DUI */
             overflow: hidden; /* لمنع أي أشرطة تمرير غير مرغوبة */
             font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex; /* استخدام Flexbox لوضع القائمة */
+            justify-content: flex-start; /* وضع القائمة من البداية أفقياً */
+            align-items: flex-start; /* وضع القائمة من البداية عمودياً */
+            padding-left: 85px; /* محاذاة لليسار بناءً على الـ 'left: 85px' الأصلي */
+            padding-top: 90px; /* محاذاة للأعلى بناءً على الـ 'top: 90px' الأصلي */
+            /* لا حاجة لـ background-color هنا لأنها معرفة في html, body */
         }
 
         .menu-container {
@@ -34,28 +43,28 @@
             /* شفافية خلفية القائمة */
             background: rgba(12, 12, 12, 0.50);
             border-radius: 8px;
-            position: absolute;
-            top: 90px;
-            left: 85px;
+            /* تم إزالة position: absolute و top و left; هذه الخصائص تُحدد الآن بواسطة خصائص الـ Flexbox و padding في body */
             overflow: hidden;
             box-shadow:
                 0 6px 20px rgba(0, 0, 0, 0.5),
                 0 0 0 1px rgba(255, 255, 255, 0.03);
             display: flex;
             flex-direction: column;
+            /* للتأكد من أن القائمة نفسها شفافة للخلفية */
+            z-index: 1; /* التأكد من أنها فوق أي شيء آخر في DUI */
         }
 
         .menu-header {
             height: 150px;
             /* الخلفية الافتراضية هنا سيتم استبدالها بالجافاسكريبت */
             background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
-            position: relative;
+            position: relative; /* يجب أن تبقى relative للسماح بتموضع header-home-text */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        .header-rura-text {
+        .header-home-text {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -75,7 +84,7 @@
             padding: 4px 0;
             height: calc(100% - 150px - 32px);
             overflow-y: hidden;
-            position: relative;
+            position: relative; /* يجب أن تبقى relative للسماح بتموضع highlight-bar */
             display: flex;
             flex-direction: column;
         }
@@ -112,7 +121,7 @@
             background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            z-index: 1;
+            z-index: 1; /* يجب أن يكون أقل من z-index لـ menu-item لكي تظهر فوقه */
             transition: top 0.4s ease-out;
         }
 
@@ -295,7 +304,7 @@
 <body __processed_cc115d3e-3806-49b4-a263-3212ebff4416__="true">
     <div class="menu-container">
         <div class="menu-header" id="menuHeader" style="background-image: url(&quot;https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&amp;is=68565020&amp;hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928&quot;);">
-            <div class="header-rura-text">rura</div>
+            <div class="header-home-text">HOME</div>
         </div>
 
         <div class="menu-items">
