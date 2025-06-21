@@ -1,72 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lean Menu - Final</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Google Fonts - Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* تم إزالة خصائص تحسين الخطوط المحتملة للتوافق مع FiveM */
-            /* -webkit-font-smoothing: antialiased; */
-            /* -moz-osx-font-smoothing: grayscale; */
-            /* text-rendering: optimizeLegibility; */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         html, body {
             width: 100%;
             height: 100%;
-            margin: 0; /* تأكيد إزالة الهوامش الافتراضية */
-            padding: 0; /* تأكيد إزالة الحشوة الافتراضية */
-            background-color: transparent !important; /* هذا هو المفتاح للشفافية في FiveM DUI */
-            overflow: hidden; /* لمنع أي أشرطة تمرير غير مرغوبة */
+            /* هذا السطر حيوي لشفافية الـ NUI في FiveM */
+            background-color: transparent !important;
+            overflow: hidden;
             font-family: 'Roboto', sans-serif;
-            /* تم إزالة خصائص تحسين الخطوط المحتملة للتوافق مع FiveM */
-            /* -webkit-font-smoothing: antialiased; */
-            /* -moz-osx-font-smoothing: grayscale; */
-            /* text-rendering: optimizeLegibility; */
-        }
-
-        body {
-            display: flex; /* استخدام Flexbox لوضع القائمة */
-            justify-content: flex-start; /* وضع القائمة من البداية أفقياً */
-            align-items: flex-start; /* وضع القائمة من البداية عمودياً */
-            padding-left: 85px; /* محاذاة لليسار بناءً على الـ 'left: 85px' الأصلي */
-            padding-top: 90px; /* محاذاة للأعلى بناءً على الـ 'top: 90px' الأصلي */
         }
 
         .menu-container {
             width: 370px;
             height: 530px;
-            background: rgba(12, 12, 12, 0.50); /* شفافية خلفية القائمة */
+            /* الخلفية الأساسية للمنيو - تم إزالة البلورية (backdrop-filter) */
+            background: rgba(12, 12, 12, 0.85); /* استخدم 0.7 لشفافية أقوى */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             border-radius: 8px;
-            /* تم إزالة position: absolute و top و left; هذه الخصائص تُحدد الآن بواسطة خصائص الـ Flexbox و padding في body */
+            border: 1px solid rgba(255, 255, 0, 0.3); /* حدود صفراء خفيفة */
+            position: absolute;
+            top: 90px;
+            left: 85px;
             overflow: hidden;
             box-shadow:
                 0 6px 20px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.03);
+                inset 0 0 10px rgba(255, 255, 0, 0.1); /* ظل داخلي خفيف */
             display: flex;
             flex-direction: column;
-            z-index: 1; /* التأكد من أنها فوق أي شيء آخر في DUI */
         }
 
         .menu-header {
             height: 150px;
             /* الخلفية الافتراضية هنا سيتم استبدالها بالجافاسكريبت */
             background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
-            position: relative; /* يجب أن تبقى relative للسماح بتموضع header-up-text */
+            position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        .header-up-text {
+        .header-home-text {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -86,7 +74,7 @@
             padding: 4px 0;
             height: calc(100% - 150px - 32px);
             overflow-y: hidden;
-            position: relative; /* يجب أن تبقى relative للسماح بتموضع highlight-bar */
+            position: relative;
             display: flex;
             flex-direction: column;
         }
@@ -120,11 +108,10 @@
             left: 0;
             width: 100%;
             height: 38px;
-            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف للمربع المتحرك */
-            /* تم إزالة backdrop-filter للتوافق مع FiveM */
-            /* backdrop-filter: blur(5px); */
-            /* -webkit-backdrop-filter: blur(5px); */
-            z-index: 1; /* يجب أن يكون أقل من z-index لـ menu-item لكي تظهر فوقه */
+            /* مربع التظليل - تم إزالة البلورية منه */
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف فقط */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
+            z-index: 1;
             transition: top 0.4s ease-out;
         }
 
@@ -181,10 +168,9 @@
         }
 
         .menu-footer {
+            /* التذييل - تم إزالة البلورية منه */
             background: rgba(8, 8, 8, 0.7);
-            /* تم إزالة backdrop-filter للتوافق مع FiveM */
-            /* backdrop-filter: blur(8px); */
-            /* -webkit-backdrop-filter: blur(8px); */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
@@ -202,14 +188,13 @@
         }
 
         .menu-footer .counter {
+            /* العداد - تم إزالة البلورية منه */
             color: rgb(255, 255, 0);
             font-weight: 600;
             font-size: 11px;
             padding: 2px 5px;
             background: rgba(255, 255, 0, 0.15);
-            /* تم إزالة backdrop-filter للتوافق مع FiveM */
-            /* backdrop-filter: blur(3px); */
-            /* -webkit-backdrop-filter: blur(3px); */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             border-radius: 6px;
         }
 
@@ -224,10 +209,9 @@
         }
 
         .notification {
+            /* الإشعارات - تم إزالة البلورية منها */
             background: rgba(12, 12, 12, 0.85);
-            /* تم إزالة backdrop-filter للتوافق مع FiveM */
-            /* backdrop-filter: blur(12px); */
-            /* -webkit-backdrop-filter: blur(12px); */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             border: 1px solid rgba(255, 255, 0, 0.5);
             padding: 14px 18px;
             border-radius: 10px;
@@ -311,7 +295,7 @@
     <div class="menu-container">
         
         <div class="menu-header" id="menuHeader">
-            <div class="header-up-text">up</div>
+            <div class="header-home-text">HOME</div>
         </div>
 
         <div class="menu-items">
@@ -374,7 +358,7 @@
 
     <script>
         // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
-        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا (مثال لصورة صفراء 370x150)
+        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // هذا هو رابط الصورة الأصلي الذي طلبته
         // ===========================================
 
         console.log('🌟 Lean Menu - Final Yellow Glassmorphism Theme');
@@ -422,7 +406,7 @@
                     const topPosition = currentIndex * itemHeight + 4;
                     highlightBar.style.top = `${topPosition}px`;
                 }
-                
+
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }
         }
@@ -486,7 +470,7 @@
                     selectEffect(index);
                 });
             });
-            
+
             // استدعاء دالة تعيين صورة البنر هنا لتطبيق الصورة الافتراضية
             setHeaderImage(bannerImageUrl);
         });
